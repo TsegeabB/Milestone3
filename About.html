@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="mystyle.css">
+  <title>About</title>
+</head>
+<body>
+  <nav>
+    <!-- Links to other internal pages -->
+    <button><a href="index.html" target="_self" aria-label="Go to Home page">Home</a></button>
+    <button><a href="Reviews.html" target="_self" aria-label="Go to Reviews page">Reviews</a></button>
+    <button><a href="About.html" target="_self" aria-label="Go to About page">About</a></button>
+  </nav>
+
+  <div class="info">
+    <h1>About me</h1>
+    <p>Hi, I am Tsegeab Binchamo. I am currently a student at Kennesaw State University pursuing Bachelor of Science in Information Technology with a 3.47 GPA. I am a former recipient of Lockheed Martin Scholarship and current recipient of HOPE Scholarship to support my academic journey. As a dean's list student in fall of 2023, I have showcased my academic proficiencies across challenging IT coursework. Through classes like Programming and Problem Solving, Database Systems, and Introduction to Web Development, I have gained hands-on experience with languages like Java, Python, HTML, JavaScript, and CSS. I have done personal projects such as a math course placement tool to help new students select appropriate math levels based on GPA and test scores. I also assembled an original board game from conception to professional-quality finished product, honing my creativity. As an Amazon Fulfillment Center Warehouse Packer, I exceeded productivity targets while operating packing and sealing equipment. I collaborated seamlessly with associates and implemented safety principles for lifting and handling. This experience primed me with skills in communication, teamwork, and adapting to high-paced warehouse environments. Moving forward, I intend to leverage my blend of academic knowledge and hands-on abilities to secure a challenging internship and later a full-time role as a Software Developer, Web developer, database administrator, etc. I am passionate about technology's power to transform business operations and data-driven decisions. My ultimate goal is driving positive impacts through IT projects at an innovative organization after earning my degree.</p>
+
+    <div class="form">
+      <form method="POST" action="/submit-form">
+        <!-- Form fields for Full Name, Password, and Country -->
+        <label for="fname">Full Name</label>
+        <input type="text" id="fname" name="fname" placeholder="John Doe" required>
+        <br><br>
+        <label for="password">Password</label>
+        <input type="text" id="password" name="password" placeholder="John123" required>
+        <br><br>
+        <label for="country">Country</label>
+        <select name="country" id="country" required>
+          <option value="">Select</option>
+          <option value="U.S.A">United States of America</option>
+          <option value="Canada">Canada</option>
+          <option value="Mexico">Mexico</option>
+          <option value="other">Other</option>
+        </select>
+        <!-- Input field for other countries -->
+        <input type="text" id="otherCountry" name="otherCountry" placeholder="Enter your country" style="display: none;">
+        <input type="reset" value="Reset" id="resetButton">
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Function to reset the form
+    function resetForm() {
+      const fullName = document.getElementById("fname").value;
+      const password = document.getElementById("password").value;
+      const country = document.getElementById("country").value;
+      const otherCountry = document.getElementById("otherCountry").value;
+
+      if (fullName !== "" || password !== "" || country !== "" || otherCountry !== "") {
+        document.getElementById("fname").value = "";
+        document.getElementById("password").value = "";
+        document.getElementById("country").value = "";
+        document.getElementById("otherCountry").value = "";
+        alert("Form cleared");
+      }
+    }
+
+    // Function to validate the form before submission
+    function validateForm() {
+      let fullName = document.getElementById("fname").value;
+      let password = document.getElementById("password").value;
+      let country = document.getElementById("country").value;
+      let otherCountry = document.getElementById("otherCountry").value;
+
+      if (fullName === "" || password === "") {
+        alert("Please fill in all fields");
+        return false;
+      }
+
+      if (country === "") {
+        if (otherCountry === "") {
+          alert("Please select a country or enter your country");
+          return false;
+        }
+      } else if (country === "other" && otherCountry === "") {
+        alert("Please enter your country");
+        return false;
+      }
+
+      if (password.length < 8) {
+        alert("Password must be at least 8 characters long");
+        return false;
+      }
+
+      return true;
+    }
+
+    // Function to toggle the visibility of the "Other Country" input field
+    function toggleOtherCountry() {
+      const countrySelect = document.getElementById("country");
+      const otherCountryInput = document.getElementById("otherCountry");
+
+      if (countrySelect.value === "other") {
+        otherCountryInput.style.display = "inline-block";
+      } else {
+        otherCountryInput.style.display = "none";
+        otherCountryInput.value = ""; // Clear the input field when a different option is selected
+      }
+    }
+
+    const form = document.querySelector('form');
+    const resetButton = document.getElementById('resetButton');
+    const countrySelect = document.getElementById("country");
+
+    // Event listener for form submission
+    form.addEventListener('submit', (event) => {
+      if (!validateForm()) {
+        event.preventDefault(); // Prevent form submission if validation fails
+      }
+    });
+
+    // Event listener for reset button click
+    resetButton.addEventListener('click', () => {
+      resetForm();
+    });
+
+    // Event listener for country select change
+    countrySelect.addEventListener("change", toggleOtherCountry);
+  </script>
+
+  <footer>
+    <p>Author: Tsegeab Binchamo</p>
+    <p>This is a class project for IT 3203: Intro to Web Development.</p>
+  </footer>
+</body>
+</html>
